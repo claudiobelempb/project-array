@@ -16,6 +16,11 @@ class CategoriesRepository {
     return this.categories;
   }
 
+  show(id: string): Category[] | undefined {
+    const category = this.categories.filter(category => category.id === id);
+    return category;
+  }
+
   create({ name, description }: ICreateCategoryDTO): Category{
     const category = new Category();
 
@@ -30,6 +35,17 @@ class CategoriesRepository {
 
     return category;
   }
+
+  findByName(name: string){
+    const category = this.categories.find(category => category.name === name);
+    return category;
+  }
+
+  findById(id: string){
+    const category = this.categories.find(category => category.id === id);
+    return category;
+  }
+
 }
 
 export { CategoriesRepository };

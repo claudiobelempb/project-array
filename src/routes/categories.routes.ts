@@ -9,12 +9,32 @@ categoriesRoutes.get("/", (request, response) => {
   return response.json(categories);
 });
 
+categoriesRoutes.get("/:id", (request, response) => {
+  const { id } = request.params;
+
+  const categoryIdExists = categoriesRepository.findById(id);
+
+  if (!categoryIdExists) {
+    throw new Error("Category not exists");
+  }
+
+  const category = categoriesRepository.show(id);
+
+  return response.json(category);
+});
+
 categoriesRoutes.post("/", (request, response) => {
   const { name, description } = request.body;
 
-  const category = categoriesRepository.create({ 
-    name, 
-    description
+  const categoryNameExists = categoriesRepository.findByName(name);
+
+  if (categoryNameExists) {
+    throw new Error("Category already exists");
+  }
+
+  const category = categoriesRepository.create({
+    name,
+    description,
   });
 
   return response.status(201).json(category);
