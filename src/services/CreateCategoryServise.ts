@@ -1,5 +1,5 @@
 import { Category } from "../models/Category";
-import { CategoriesRepository } from "../repositories/CategoriesRepository";
+import { ICategoriesRepository } from "../repositories/ICategoriesRepository";
 
 interface ICreateCategoryDTO {
   name: string;
@@ -9,7 +9,7 @@ interface ICreateCategoryDTO {
 class CreateCategoryServise {
 
   constructor(
-    private repository: CategoriesRepository
+    private repository: ICategoriesRepository
   ){}
 
   execute({ name, description }: ICreateCategoryDTO): Category {

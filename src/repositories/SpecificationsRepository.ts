@@ -1,3 +1,4 @@
+import { ISpecificationsRepository } from "./ISpecificationsRepository";
 import { Specification } from "../models/Specification";
 
 interface ICreateSpecificationDTO {
@@ -5,7 +6,7 @@ interface ICreateSpecificationDTO {
   description: string;
 }
 
-class SpecificationsRepository {
+class SpecificationsRepository implements ISpecificationsRepository {
   private specifications: Specification[];
 
   constructor() {

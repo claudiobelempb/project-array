@@ -1,5 +1,5 @@
 import { Specification } from "../models/Specification";
-import { SpecificationsRepository } from "../repositories/SpecificationsRepository";
+import { ISpecificationsRepository } from "../repositories/ISpecificationsRepository";
 
 interface ICreateSpecificationDTO {
   name: string;
@@ -7,7 +7,7 @@ interface ICreateSpecificationDTO {
 }
 
 class CreateSpecificationService {
-  constructor(private repository: SpecificationsRepository) {}
+  constructor(private repository: ISpecificationsRepository) {}
 
   execute({ name, description }: ICreateSpecificationDTO): Specification {
     const specificationNameExists = this.repository.findByName(name);
