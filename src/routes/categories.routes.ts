@@ -15,7 +15,7 @@ categoriesRoutes.get("/:id", (request, response) => {
   const categoryIdExists = categoriesRepository.findById(id);
 
   if (!categoryIdExists) {
-    throw new Error("Category not exists");
+    return response.status(400).json({error: "Category id already exists"});
   }
 
   const category = categoriesRepository.show(id);
@@ -29,7 +29,7 @@ categoriesRoutes.post("/", (request, response) => {
   const categoryNameExists = categoriesRepository.findByName(name);
 
   if (categoryNameExists) {
-    throw new Error("Category already exists");
+    return response.status(400).json({error: "Category name already exists"});
   }
 
   const category = categoriesRepository.create({
