@@ -8,7 +8,7 @@ interface ICreateCategoryDTO {
 class CategoriesRepository {
   private categories: Category[];
 
-  constructor(){
+  constructor() {
     this.categories = [];
   }
 
@@ -21,7 +21,7 @@ class CategoriesRepository {
     return category;
   }
 
-  create({ name, description }: ICreateCategoryDTO): Category{
+  create({ name, description }: ICreateCategoryDTO): Category {
     const category = new Category();
 
     Object.assign(category, {
@@ -36,16 +36,15 @@ class CategoriesRepository {
     return category;
   }
 
-  findByName(name: string){
+  findByName(name: string): Category {
     const category = this.categories.find(category => category.name === name);
     return category;
   }
 
-  findById(id: string){
+  findById(id: string): Category {
     const category = this.categories.find(category => category.id === id);
     return category;
   }
-
 }
 
 export { CategoriesRepository };

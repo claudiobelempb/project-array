@@ -16,6 +16,13 @@ class SpecificationsRepository {
     return this.specifications;
   }
 
+  show(id: string): Specification[] | undefined {
+    const specification = this.specifications.filter(
+      category => category.id === id,
+    );
+    return specification;
+  }
+
   create({ name, description }: ICreateSpecificationDTO): Specification {
     const specification = new Specification();
 
@@ -31,6 +38,19 @@ class SpecificationsRepository {
     return specification;
   }
 
+  findByName(name: string): Specification {
+    const specification = this.specifications.find(
+      specification => specification.name === name,
+    );
+    return specification;
+  }
+
+  findById(id: string): Specification {
+    const specification = this.specifications.find(
+      specification => specification.id === id,
+    );
+    return specification;
+  }
 }
 
 export { SpecificationsRepository };

@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { Specification } from "../models/Specification";
 import { SpecificationsRepository } from "../repositories/SpecificationsRepository";
+import { CreateSpecificationService } from "../services/CreateSpecificationService";
 
 const specificationsRoutes = Router();
-
-const specifications = [];
 const specificationsRepository = new SpecificationsRepository();
+const createSpecificationService = new CreateSpecificationService(specificationsRepository);
 
 interface ICreateSpecificationDTO {
   id: string;
@@ -20,10 +19,23 @@ specificationsRoutes.get("/", (request, response) => {
   return response.json(specifications);
 });
 
+specificationsRoutes.get("/:id", (request, response) => {
+  const { id } = request.params;
+
+  const specificationIdExists = specificationsRepository.findById(id);
+
+  if (!specificationIdExists) {
+    return response.status(400).json({ error: "Specification id not exists." });
+  }
+
+  const specification = specificationsRepository.show(id);
+  return response.json(specification);
+});
+
 specificationsRoutes.post("/", (request, response) => {
   const { name, description } = request.body;
 
-  const specification = specificationsRepository.create({ name, description});
+  const specification = createSpecificationService.execute({name, description});
 
   return response.status(201).json(specification);
 });
