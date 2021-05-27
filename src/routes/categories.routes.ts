@@ -1,14 +1,13 @@
 import { Router } from "express";
-import { CategoriesRepository } from "../repositories/CategoriesRepository";
-import { CreateCategoryServise } from "../services/CreateCategoryServise";
+import { CategoriesRepository } from "../modules/cars/repositories/CategoriesRepository";
+import { categoryController } from "../modules/cars/useCases/categories/categoryCreate";
+import { categoryIndexController } from "../modules/cars/useCases/categories/categoryIndex";
 
 const categoriesRoutes = Router();
-const categoriesRepository = new CategoriesRepository();
-const createCategoryServise = new CreateCategoryServise(categoriesRepository);
+const categoriesRepository = CategoriesRepository.getInstance();
 
 categoriesRoutes.get("/", (request, response) => {
-  const categories = categoriesRepository.index();
-  return response.json(categories);
+  return categoryIndexController.handle(request, response);
 });
 
 categoriesRoutes.get("/:id", (request, response) => {
@@ -26,11 +25,7 @@ categoriesRoutes.get("/:id", (request, response) => {
 });
 
 categoriesRoutes.post("/", (request, response) => {
-  const { name, description } = request.body;
-
-  const category = createCategoryServise.execute({ name, description });
-
-  return response.status(201).json(category);
+  return categoryController.handle(request, response);
 });
 
 export { categoriesRoutes };
