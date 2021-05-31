@@ -1,5 +1,0 @@
-class SpecificationCreateController {
-
-}
-
-export { SpecificationCreateController };
