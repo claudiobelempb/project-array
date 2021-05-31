@@ -1,5 +1,5 @@
-import { ISpecificationsRepository } from "./ISpecificationsRepository";
-import { Specification } from "../entities/Specification";
+import { ISpecificationsRepository } from "../ISpecificationsRepository";
+import { Specification } from "../../entities/Specification";
 
 interface ICreateSpecificationDTO {
   name: string;
@@ -8,9 +8,17 @@ interface ICreateSpecificationDTO {
 
 class SpecificationsRepository implements ISpecificationsRepository {
   private specifications: Specification[];
+  private static INSTANCE: SpecificationsRepository;
 
-  constructor() {
+  private constructor() {
     this.specifications = [];
+  }
+
+  static getInstance(): SpecificationsRepository {
+    if (!SpecificationsRepository.INSTANCE) {
+      SpecificationsRepository.INSTANCE = new SpecificationsRepository();
+    }
+    return SpecificationsRepository.INSTANCE;
   }
 
   index(): Specification[] {

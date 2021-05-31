@@ -1,5 +1,5 @@
-import { Category } from "../entities/Category";
-import { ICategoriesRepository } from "./ICategoriesRepository";
+import { Category } from "../../entities/Category";
+import { ICategoriesRepository } from "../ICategoriesRepository";
 
 interface ICreateCategoryDTO {
   name: string;
@@ -15,7 +15,7 @@ class CategoriesRepository implements ICategoriesRepository {
   }
 
   static getInstance(): CategoriesRepository {
-    if(!CategoriesRepository.INSTANCE) {
+    if (!CategoriesRepository.INSTANCE) {
       CategoriesRepository.INSTANCE = new CategoriesRepository();
     }
     return CategoriesRepository.INSTANCE;
